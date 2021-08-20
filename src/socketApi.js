@@ -9,3 +9,15 @@ export const init = () => {
 
     socket.on('connect' , () => console.log('connected') )
 }
+
+export const sendMessage = (message) => {
+    if(socket) socket.emit('new-message' , message);
+} 
+
+export const subscribeChat = (cb) => {
+    if(!socket) return;
+
+    socket.on('receive-message' , (message) => {
+        cb(message)
+    })
+} 
